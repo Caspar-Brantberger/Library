@@ -67,7 +67,7 @@ public class ConsoleView {
                 switch (choice) {
                     case "1": addCustomer();
                         break;
-                    case "2":
+                    case "2": LoanBook();
                         break;
                     case "3":
                         break;
@@ -124,5 +124,14 @@ public class ConsoleView {
         int bookid = sc.nextInt();
 
         booksDAO.deleteBook(bookid);
+    }
+    public void LoanBook() {
+        System.out.println("What book do you want to loan?");
+        System.out.println("What customer id do you have?:");
+        int customerid = sc.nextInt();
+        System.out.println("Enter book id: ");
+        int bookid = sc.nextInt();
+
+        loansDAO.LoanBook(customerid,bookid);
     }
 }
