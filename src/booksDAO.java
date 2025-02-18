@@ -56,7 +56,7 @@ public class booksDAO {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-              books.add(new books(rs.getString("title"),
+              books.add(new books(rs.getInt("books_id"),rs.getString("title"),
                       rs.getString("author"),
                       rs.getString("available")));
             }

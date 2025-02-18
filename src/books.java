@@ -1,5 +1,7 @@
 public class books {
 
+    private int books_id;
+
     private String title;
 
    private String author;
@@ -7,10 +9,17 @@ public class books {
     private String available;
 
 
-    public books(String title, String author, String available) {
+    public books(int books_id,String title, String author, String available) {
+        this.books_id = books_id;
         this.title = title;
         this.author = author;
         this.available = available;
+    }
+    public int getBooks_id() {
+        return books_id;
+    }
+    public void setBooks_id(int books_id) {
+        this.books_id = books_id;
     }
 
     public String getTitle() {
@@ -35,8 +44,9 @@ public class books {
     @Override
     public String toString() {
         return
-                "title: " + title +
-                ", author='" + author +
+                "books_id " + books_id +
+                ", title " + title +
+                ", author " + author +
                 ", available='" + available;
     }
 }

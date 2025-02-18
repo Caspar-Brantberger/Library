@@ -16,7 +16,8 @@ public class loansDAO {
             stmt.setString(3,user_name);
 
             stmt.executeUpdate();
-            System.out.println("Book successfully loaned");
+                System.out.println("Book successfully loaned");
+
 
         } catch (SQLException e) {
             System.out.println("Failed to loan book");
@@ -26,6 +27,7 @@ public class loansDAO {
     }
     public void returnBook(int customer_id, int book_id) {
         String sql = "UPDATE loans SET available=1 WHERE customer_id=? AND book_id=?";
+        //Måste göra en join med books
 
         try {
             Connection conn = Database.getConnection();
@@ -47,7 +49,6 @@ public class loansDAO {
         List<loans> loans = new ArrayList<>();
 
         String sql = "SELECT * FROM loans WHERE customer_id=?";
-        //Måste göra en join med books
 
         try {
             Connection conn = Database.getConnection();
