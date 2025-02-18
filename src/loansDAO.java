@@ -1,21 +1,19 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class loansDAO {
 
 
-    public void LoanBook(int customer_id, int book_id) {
-        String sql = "INSERT INTO loans (customer_id, book_id) VALUES (?,?)";
+    public void LoanBook(int customer_id, int book_id,String user_name) {
+        String sql = "INSERT INTO loans (customer_id, book_id,user_name) VALUES (?,?,?)";
         try {
             Connection conn = Database.getConnection();
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, customer_id);
             stmt.setInt(2, book_id);
+            stmt.setString(3,user_name);
 
             stmt.executeUpdate();
             System.out.println("Book successfully loaned");
@@ -27,14 +25,14 @@ public class loansDAO {
 
     }
     public void returnBook(int customer_id, int book_id) {
-        String sql = "UPDATE loans SET book_id=? WHERE customer_id=?";
+        String sql = "UPDATE loans SET available=1 WHERE customer_id=? AND book_id=?";
 
         try {
             Connection conn = Database.getConnection();
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, book_id);
-            stmt.setInt(2, customer_id);
+            stmt.setInt(2, book_id);
+            stmt.setInt(1, customer_id);
 
             stmt.executeUpdate();
             System.out.println("Book return successfully!!");
@@ -45,15 +43,18 @@ public class loansDAO {
         }
 
     }
-    public List<loans> ListCurrrentLoans(){
+    public List<loans> ListCurrrentLoans(int customerid){
         List<loans> loans = new ArrayList<>();
-        String sql = "SELECT * FROM loans";
+
+        String sql = "SELECT * FROM loans WHERE customer_id=?";
+        //Måste göra en join med books
 
         try {
             Connection conn = Database.getConnection();
-
             PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, customerid);
             ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
                 loans.add(new loans(rs.getInt("loan_id"),
                         rs.getString("user_name"),
@@ -62,9 +63,6 @@ public class loansDAO {
                         rs.getDate("return_date")));
             }
 
-
-            stmt.executeUpdate();
-            System.out.println("List current loans!!");
 
         } catch (SQLException e) {
             System.out.println("failed to list current loans");

@@ -128,17 +128,21 @@ public class ConsoleView {
     public void ListCurrentLoans() {
         System.out.println("What customer id do you have?");
         int customerid = sc.nextInt();
-        List<loans> loans = loansDAO.ListCurrrentLoans();
+        List<loans> loans = loansDAO.ListCurrrentLoans(customerid);
         loans.forEach(loan -> System.out.println(loan));
     }
     public void LoanBook() {
-        System.out.println("What book do you want to loan?");
         System.out.println("What customer id do you have?:");
         int customerid = sc.nextInt();
+        sc.nextLine();
+        System.out.println("What customer name do you have?:");
+        String username = sc.nextLine();
+        sc.nextLine();
         System.out.println("Enter book id: ");
         int bookid = sc.nextInt();
 
-        loansDAO.LoanBook(customerid,bookid);
+
+        loansDAO.LoanBook(customerid,bookid,username);
     }
     public void returnBook() {
         System.out.println("What customer id do you have?");
