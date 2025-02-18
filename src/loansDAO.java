@@ -14,7 +14,6 @@ public class loansDAO {
             stmt.setInt(1, customer_id);
             stmt.setInt(2, book_id);
 
-
             stmt.executeUpdate();
             System.out.println("Book successfully loaned");
 
@@ -24,14 +23,15 @@ public class loansDAO {
         }
 
     }
-    public void returnBook(){
+    public void returnBook(int customer_id, int book_id) {
         String sql = "UPDATE loans SET book_id=? WHERE customer_id=?";
 
         try {
             Connection conn = Database.getConnection();
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-
+            stmt.setInt(1, book_id);
+            stmt.setInt(2, customer_id);
 
             stmt.executeUpdate();
             System.out.println("Book return successfully!!");

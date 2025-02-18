@@ -69,7 +69,7 @@ public class ConsoleView {
                         break;
                     case "2": LoanBook();
                         break;
-                    case "3":
+                    case "3": returnBook();
                         break;
                     case "4":
                         break;
@@ -133,5 +133,13 @@ public class ConsoleView {
         int bookid = sc.nextInt();
 
         loansDAO.LoanBook(customerid,bookid);
+    }
+    public void returnBook() {
+        System.out.println("What customer id do you have?");
+        int customerid = sc.nextInt();
+        System.out.println("Enter book id for what book you want to return: ");
+        int bookid = sc.nextInt();
+
+        loansDAO.returnBook(customerid,bookid);
     }
 }
