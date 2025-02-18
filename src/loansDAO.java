@@ -1,6 +1,9 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class loansDAO {
 
@@ -42,13 +45,22 @@ public class loansDAO {
         }
 
     }
-    public void ListCurrrentLoans(){
+    public List<loans> ListCurrrentLoans(){
+        List<loans> loans = new ArrayList<>();
         String sql = "SELECT * FROM loans";
 
         try {
             Connection conn = Database.getConnection();
 
             PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                loans.add(new loans(rs.getInt("loan_id"),
+                        rs.getString("user_name"),
+                        rs.getInt("book_id"),
+                        rs.getDate("loan_date"),
+                        rs.getDate("return_date")));
+            }
 
 
             stmt.executeUpdate();
@@ -58,6 +70,6 @@ public class loansDAO {
             System.out.println("failed to list current loans");
             e.printStackTrace();
         }
-
+      return loans;
     }
 }

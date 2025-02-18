@@ -71,7 +71,7 @@ public class ConsoleView {
                         break;
                     case "3": returnBook();
                         break;
-                    case "4":
+                    case "4": ListCurrentLoans();
                         break;
                     case "5": getAllBooks();
                         break;
@@ -124,6 +124,12 @@ public class ConsoleView {
         int bookid = sc.nextInt();
 
         booksDAO.deleteBook(bookid);
+    }
+    public void ListCurrentLoans() {
+        System.out.println("What customer id do you have?");
+        int customerid = sc.nextInt();
+        List<loans> loans = loansDAO.ListCurrrentLoans();
+        loans.forEach(loan -> System.out.println(loan));
     }
     public void LoanBook() {
         System.out.println("What book do you want to loan?");
