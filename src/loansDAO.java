@@ -6,6 +6,7 @@ import java.util.List;
 public class loansDAO {
 
 books b1 = new books(1,"",null,null);
+Customer c1 = new Customer(1,"","");
 
     public void LoanBook(int customer_id, int book_id, String user_name) {
         String sql = "INSERT INTO loans (customer_id, book_id,user_name) VALUES (?,?,?)";
@@ -32,26 +33,22 @@ books b1 = new books(1,"",null,null);
 
     }
     public void returnBook(int customer_id, int book_id) {
-        String sql = "SELECT loans.customer_id.book_id,books.avialable FROM loans INNER JOIN books ON loans.book_id=books.book_id WHERE loans.customer_id=?";
-       // String sql = "UPDATE loans SET available=1 WHERE customer_id=? AND book_id=?";
-        //Måste göra en join med books
+       String sql = "DELETE FROM loans WHERE customer_id=? AND book_id=?";
 
         try {
             Connection conn = Database.getConnection();
 
             PreparedStatement stmt = conn.prepareStatement(sql);
+
             stmt.setInt(1, customer_id);
-            ResultSet rs = stmt.executeQuery();
-            //stmt.setInt(2, book_id);
-            //stmt.setInt(1, customer_id);
+            stmt.setInt(2, book_id);
 
+            int rowsAffected = stmt.executeUpdate();
 
-
-            if (b1.getBooks_id() == book_id) {
-                System.out.println("Book is already returned");
+            if (rowsAffected > 0) {
+                System.out.println("Book successfully returned");
             } else {
-                stmt.executeUpdate();
-                System.out.println("Book return successfully!!");
+                System.out.println("Failed to return book: No matching record found");
             }
         } catch (SQLException e) {
             System.out.println("Failed to return book");
