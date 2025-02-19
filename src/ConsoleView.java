@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
@@ -56,10 +57,11 @@ public class ConsoleView {
 
                 System.out.println("---- MENU ----");
                 System.out.println("1. Register new customer");
-                System.out.println("2. Loan book");
-                System.out.println("3. Return book");
-                System.out.println("4. Current loans");
-                System.out.println("5. List all books");
+                System.out.println("2. View all customers details");
+                System.out.println("3. Loan book");
+                System.out.println("4. Return book");
+                System.out.println("5. Current loans");
+                System.out.println("6. List all books");
                 System.out.println("0. Quit");
 
 
@@ -67,13 +69,15 @@ public class ConsoleView {
                 switch (choice) {
                     case "1": addCustomer();
                         break;
-                    case "2": LoanBook();
+                    case "2": getAllCustomers();
                         break;
-                    case "3": returnBook();
+                    case "3": LoanBook();
                         break;
-                    case "4": ListCurrentLoans();
+                    case "4": returnBook();
                         break;
-                    case "5": getAllBooks();
+                    case "5": ListCurrentLoans();
+                        break;
+                    case "6": getAllBooks();
                         break;
                     case "0":
                         return;
