@@ -5,26 +5,36 @@ import java.util.List;
 
 public class loansDAO {
 
-books b1 = new books(1,"",null,null);
-Customer c1 = new Customer(1,"","");
+books b1 = new books(1 ,"","","");
 
     public void LoanBook(int customer_id, int book_id, String user_name) {
         String sql = "INSERT INTO loans (customer_id, book_id,user_name) VALUES (?,?,?)";
         try {
             Connection conn = Database.getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, customer_id);
-            stmt.setInt(2, book_id);
-            stmt.setString(3,user_name);
+            String checksql = "SELECT COUNT(*) FROM loans WHERE book_id=?";
+            PreparedStatement ps = conn.prepareStatement(checksql);
+            ps.setInt(1,book_id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            boolean isLoaned = rs.getInt(1) > 0;
 
+            if (isLoaned) {
+                System.out.println("Book is already loaned");
+            }else {
 
-             if (b1.getBooks_id() == book_id) {
-                 System.out.println("Book is already loaned");
-             }else{
-                 stmt.executeUpdate();
-                 System.out.println("Book successfully loaned");
-             }
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, customer_id);
+                stmt.setInt(2, book_id);
+                stmt.setString(3, user_name);
+
+                int rowsAffected = stmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Book is successfully loaned");
+                } else {
+                    System.out.println("Error");
+                }
+            }
 
         } catch (SQLException e) {
             System.out.println("Failed to loan book");
