@@ -30,6 +30,14 @@ public class loansDAO {
                     System.out.println("Book is not available");
                     return;
                 }
+                    String updatesql = "UPDATE books SET available=? WHERE books_id=?";
+                    PreparedStatement ps2 = conn.prepareStatement(updatesql);
+                    ps2.setString(1,"No");
+                    ps2.setInt(2,book_id);
+                    int update = ps2.executeUpdate();
+                    if (update > 0) {
+                        System.out.println("Book availablity updated");
+                    }
 
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, customer_id);
@@ -55,6 +63,16 @@ public class loansDAO {
 
         try {
             Connection conn = Database.getConnection();
+
+
+            String updatesql = "UPDATE books SET available=? WHERE books_id=?";
+            PreparedStatement ps = conn.prepareStatement(updatesql);
+            ps.setInt(2,book_id);
+            ps.setString(1,"Yes");
+            int update = ps.executeUpdate();
+            if (update > 0) {
+                System.out.println("Book is available");
+            }
 
             PreparedStatement stmt = conn.prepareStatement(sql);
 
