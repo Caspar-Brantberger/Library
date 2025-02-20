@@ -4,7 +4,7 @@ Hejsan! Välkommen till mitt projekt "biblotek". Om ni vill testa mitt projekt s
  Du kommer kunna komma åt den här informationen i den textbaserade terminalen men du måste hålla reda på ditt eget id och bok id samt användarnamn.
  Böcker som är skappta och inlagda med "available" = "No" kommer inte kunna lånas.
 
- Mall för SQL databas med tables.
+ Mall för SQL databas med tabels.
 
  CREATE DATABASE Biblotek;
 
