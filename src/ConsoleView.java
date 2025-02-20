@@ -118,7 +118,7 @@ public class ConsoleView {
         String title = sc.nextLine();
         System.out.println("Enter author: ");
         String author = sc.nextLine();
-        System.out.println("Is it available?: ");
+        System.out.println("Is it available? Yes/No: ");
         String available = sc.nextLine();
 
         booksDAO.addBook(title,author,available);
@@ -139,9 +139,10 @@ public class ConsoleView {
         System.out.println("What customer id do you have?:");
         int customerid = sc.nextInt();
         sc.nextLine();
+
         System.out.println("What customer name do you have?:");
         String username = sc.nextLine();
-        sc.nextLine();
+
         System.out.println("Enter book id: ");
         int bookid = sc.nextInt();
 

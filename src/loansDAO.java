@@ -5,7 +5,6 @@ import java.util.List;
 
 public class loansDAO {
 
-books b1 = new books(1 ,"","","");
 
     public void LoanBook(int customer_id, int book_id, String user_name) {
         String sql = "INSERT INTO loans (customer_id, book_id,user_name) VALUES (?,?,?)";
@@ -21,7 +20,16 @@ books b1 = new books(1 ,"","","");
 
             if (isLoaned) {
                 System.out.println("Book is already loaned");
-            }else {
+            } else {
+
+                String Checkavailabity = "SELECT available FROM books WHERE books_id=?";
+                PreparedStatement ps1 = conn.prepareStatement(Checkavailabity);
+                ps1.setInt(1,book_id);
+                ResultSet rs1 = ps1.executeQuery();
+                if (rs1.next() && rs1.getString("available").equalsIgnoreCase("No")) {
+                    System.out.println("Book is not available");
+                    return;
+                }
 
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, customer_id);
