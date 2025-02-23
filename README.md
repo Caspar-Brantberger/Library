@@ -13,7 +13,7 @@ title VARCHAR (100) NOT NULL,
 author VARCHAR(100) NOT NULL,
 available VARCHAR (100) NOT NULL);
 
-DROP TABLE books;
+
 
 CREATE TABLE customers (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -21,7 +21,7 @@ CREATE TABLE customers (
     email VARCHAR(100) NOT NULL UNIQUE
 );
 
-DROP TABLE customers;
+
 
 
 CREATE TABLE loans(loan_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -33,7 +33,7 @@ return_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
  FOREIGN KEY (customer_id) REFERENCES customers(id),
   FOREIGN KEY (book_id) REFERENCES books(books_id)
 );
-DROP TABLE loans;
+
 
 
 SELECT * FROM customers;
